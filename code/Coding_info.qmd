@@ -1,5 +1,6 @@
 ---
-title: "Script"
+title: "Script for coding"
+author: "Giuliana Ponce"
 format: html
 editor: visual
 ---
