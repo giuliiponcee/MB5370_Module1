@@ -1,13 +1,15 @@
 ---
-title: "WORKSHOP 4 - How to use AI"
+title: "WORKSHOP 4"
 author: "Giuliana Ponce"
 format: html
 editor: visual
 ---
 
-*Copilot*
+# PART 1: HOW TO USE AI
 
-STEP 1: PREPARING THE WORKSPACE
+## **Copilot**
+
+### STEP 1: PREPARING THE WORKSPACE
 
 For making copilot work we need to tell him what we need to do and then just start doing it and he is going to help us with the code. For the example below, we tell him that we need to load the tidyverse and palmerpenguins libraries and then we just start writing the code (for example the l for library ) and he is going to help us with the code.
 
@@ -17,7 +19,7 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-STEP 2: PROMPT FOR A MULTI-VARIABLE SCATTER PLOT
+### STEP 2: PROMPT FOR A MULTI-VARIABLE SCATTER PLOT
 
 ```{r}
 #Create a ggplot scatter plot using the penguins dataset
@@ -33,11 +35,11 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = speci
        color = "Species")
 ```
 
-STEP 3: OPEN-ENDED COMPARATIVE PLOTTING
+### STEP 3: OPEN-ENDED COMPARATIVE PLOTTING
 
-Now we do it ourselves, not just copying what the professor said: 
+Now we do it ourselves, not just copying what the professor said:
 
-- Option A (Distribution Check): Instruct Copilot to generate a boxplot comparing flipper_length_mm across different species, faceted by island, using custom color palettes.  
+-   Option A (Distribution Check): Instruct Copilot to generate a boxplot comparing flipper_length_mm across different species, faceted by island, using custom color palettes.
 
 ```{r}
 # Create a a ggplot boxplot using the penguins dataset
@@ -56,7 +58,7 @@ ggplot(data = penguins, aes(x = species, y = flipper_length_mm, fill = species))
        fill = "Species")
 ```
 
-- Option B (Biomass correlation): Instruct Copilot to build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species.
+-   Option B (Biomass correlation): Instruct Copilot to build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species.
 
 ```{r}
 # Create a ggplot scatter plot using the penguins dataset
@@ -73,7 +75,75 @@ ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, color = spec
        color = "Species")
 
 ```
-*chattr*
+
+## *chattr*
 
 First of all, after installing the packages needed ("ellmer" and "chattr"), we need to connect them to a AI chat ( Large Language Model (LLM) by using the API key of this ones, as Gemini is the only free one we are going to go with it.
+
+We connected everything following the instructions on LearnJCU, then we went to the Tools --\> Modify Keyboard Shortcuts --\> Open Chat and added a new shortcut (command +shift+ C)
+
+Now we try it:
+
+We asked it to --\> Show me how to load the built-in iris dataset and use ggplot2 to build a scatter plot of Sepal.Length versus Sepal.Width colored by Species.
+
+Then we pressed the copy to document button and it opened an r script.
+
+```{r}
+library(ggplot2)
+
+data(iris)
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point()
+
+```
+
+# PART 2: CONDITIONAL LOGIC
+
+## FILTERING THE DATA:
+
+### If and else:
+
+The classic base R conditional structure screens a single value at a time. Its basic anatomy uses round brackets () for the logical condition and curly braces {} for the action if that condition is true.
+
+```{r}
+
+# Example: Checking Sea Surface Temperature (SST)
+
+sst <- 30.2
+
+if (sst > 29.5 ) { print("Warning: Marine heatwave threshold exceeded!") } else { print("SST remains within baseline parameters.") }
+```
+
+### Tidyverse Alternative: Vectorised Conditionals (dplyr)
+
+Base R if and if-else blocks break down when you pass them an entire column (a vector) of data. They only look at the first item. Because we are already familiar with the tidyverse, we can use vectorised functions that evaluate conditions across complete rows instantly. These functions come from the powerful data-wrangling package [dplyr](https://dplyr.tidyverse.org/), that comes as part of the tidyverse. SO IT'S IMPORTANT TO LOAD TIDYVERSE
+
+#### if_else()
+
+The if_else(condition, true_output, false_output) function evaluates an entire column item-by-item:
+
+```{r}
+# Example: Sample coral data
+
+library(tidyverse)
+coral_monitoring <- tibble (site = c("A", "B", "C"), depth_m = c(12, 35, 8))
+
+# Using if_else to classify depth
+coral_monitoring <- coral_monitoring %>% mutate (zone = if_else(depth_m > 30, "Deep reef", "Shallow reef"))
+
+coral_monitoring
+```
+
+We used some new functions in this chunk:
+- mutate() --> adds new variables or modifies existing ones
+- %>% --> passes the result on the left as the first aregument to the function on the right
+
+To get informstion about this functions we use this:
+
+``` {r}
+?mutate
+help (mutate)
+```
+
 
