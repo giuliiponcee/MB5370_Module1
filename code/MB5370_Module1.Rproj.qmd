@@ -1,9 +1,11 @@
 ---
-title: "WORKSHOP 4 - How to use copilot"
+title: "WORKSHOP 4 - How to use AI"
 author: "Giuliana Ponce"
 format: html
 editor: visual
 ---
+
+*Copilot*
 
 STEP 1: PREPARING THE WORKSPACE
 
@@ -71,3 +73,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, color = spec
        color = "Species")
 
 ```
+*chattr*
+
+First of all, after installing the packages needed ("ellmer" and "chattr"), we need to connect them to a AI chat ( Large Language Model (LLM) by using the API key of this ones, as Gemini is the only free one we are going to go with it.
+
