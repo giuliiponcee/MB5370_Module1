@@ -1,15 +1,73 @@
 ---
-title: "Palmer penguins"
+title: "WORKSHOP 4 - How to use copilot"
 author: "Giuliana Ponce"
 format: html
 editor: visual
 ---
 
-```{r}
-1 + 1
-```
+STEP 1: PREPARING THE WORKSPACE
+
+For making copilot work we need to tell him what we need to do and then just start doing it and he is going to help us with the code. For the example below, we tell him that we need to load the tidyverse and palmerpenguins libraries and then we just start writing the code (for example the l for library ) and he is going to help us with the code.
 
 ```{r}
-#| echo: false
-2 * 2
+#Load the tidyverse and palmerpenguins libraries
+library(tidyverse)
+library(palmerpenguins)
+```
+
+STEP 2: PROMPT FOR A MULTI-VARIABLE SCATTER PLOT
+
+```{r}
+#Create a ggplot scatter plot using the penguins dataset
+#Plot bill_length_mm on the x-axis and bill_depth on the y-axis
+#Color points by species and use geom_point with size 3
+#Add a minimal theme and clean labels
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "Scatter Plot of Bill Length vs Bill Depth",
+       x = "Bill Length (mm)",
+       y = "Bill Depth (mm)",
+       color = "Species")
+```
+
+STEP 3: OPEN-ENDED COMPARATIVE PLOTTING
+
+Now we do it ourselves, not just copying what the professor said: 
+
+- Option A (Distribution Check): Instruct Copilot to generate a boxplot comparing flipper_length_mm across different species, faceted by island, using custom color palettes.  
+
+```{r}
+# Create a a ggplot boxplot using the penguins dataset
+# Plot flipper_length_mm on the y-axis and species on the y-axis
+# Facet the plot by island
+# Color with custom palettes
+# Add a minimal theme and clean labels
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm, fill = species)) +
+  geom_boxplot() +
+  facet_wrap(~ island) +
+  scale_fill_manual(values = c("darkorange", "steelblue", "forestgreen")) +
+  theme_minimal() +
+  labs(title = "Boxplot of Flipper Length by Species and Island",
+       x = "Species",
+       y = "Flipper Length (mm)",
+       fill = "Species")
+```
+
+- Option B (Biomass correlation): Instruct Copilot to build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species.
+
+```{r}
+# Create a ggplot scatter plot using the penguins dataset
+# Plot body_mass_g on the x-axis and flipper_length_mm on the y-axis
+# Add a linear regression line with geom_smooth for each species
+
+ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, color = species)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Scatter Plot of Body Mass vs Flipper Length with Regression Lines",
+       x = "Body Mass (g)",
+       y = "Flipper Length (mm)",
+       color = "Species")
+
 ```
